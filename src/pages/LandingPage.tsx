@@ -8,7 +8,6 @@ export default function LandingPage() {
     <div className="w-full">
       <Hero />
       <ExperienceSection />
-      <ImageGrid />
       <CtaSection />
     </div>
   );
@@ -66,92 +65,76 @@ function Hero() {
 }
 
 function ExperienceSection() {
-  const { scrollYProgress } = useScroll();
-  const x = useTransform(scrollYProgress, [0.1, 0.4], [0, -1000]);
-
   return (
     <section className="bg-black py-40 overflow-hidden relative">
       <div className="max-w-7xl mx-auto px-6 mb-20">
-        <h2 className="text-3xl md:text-6xl font-bold tracking-tighter mb-10 max-w-3xl">
-          Redefiniendo el arte de la barbería con precisión quirúrgica.
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          <div className="space-y-4">
-            <div className="text-white/20 text-6xl font-bold tracking-tighter">01</div>
-            <h3 className="text-xl font-semibold">Técnica Superior</h3>
-            <p className="text-gray-500 leading-relaxed">
-              Formados con los estándares internacionales más exigentes para brindarte un corte impecable.
-            </p>
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="space-y-4"
+        >
+          <div className="glass-morphism border px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase text-apple-titanium w-fit">
+            Titanium Performance
           </div>
-          <div className="space-y-4">
-            <div className="text-white/20 text-6xl font-bold tracking-tighter">02</div>
-            <h3 className="text-xl font-semibold">Ambiente Premium</h3>
-            <p className="text-gray-500 leading-relaxed">
-              Un espacio diseñado para tu confort, fusionando lo rústico con la alta tecnología.
-            </p>
-          </div>
-          <div className="space-y-4">
-            <div className="text-white/20 text-6xl font-bold tracking-tighter">03</div>
-            <h3 className="text-xl font-semibold">Atención Personalizada</h3>
-            <p className="text-gray-500 leading-relaxed">
-              Porque cada cliente es único, asesoramos tu look según tu perfil y estilo de vida.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Horizontal Scroll Content like Apple Website */}
-      <div className="relative h-[400px] mt-20">
-        <motion.div style={{ x }} className="flex gap-8 px-6">
+          <h2 className="text-4xl md:text-7xl font-bold tracking-tighter mb-10 max-w-4xl hero-text-gradient">
+            Redefiniendo el arte de la barbería con ingeniería de precisión.
+          </h2>
+        </motion.div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mt-20">
           {[
-            { img: "image_0.png", title: "Cortes de Autor" },
-            { img: "image_1.png", title: "Barba Esculpida" },
-            { img: "image_2.png", title: "Acabado Perfecto" },
-            { img: "image_3.png", title: "Wesel Experience" },
-            { img: "image_0.png", title: "Degradado High End" },
-          ].map((item, i) => (
-            <div key={i} className="min-w-[300px] md:min-w-[600px] h-[400px] rounded-3xl overflow-hidden relative group cursor-pointer">
-              <img src={item.img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={item.title} />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-8">
-                <p className="text-white text-2xl font-bold">{item.title}</p>
-                <div className="mt-4 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <ChevronRight size={20} />
-                </div>
-              </div>
+            { id: "01", title: "Técnica Superior", desc: "Formados con los estándares internacionales más exigentes para brindarte un corte impecable." },
+            { id: "02", title: "Ambiente Premium", desc: "Un espacio diseñado para tu confort, fusionando lo rústico con la alta tecnología." },
+            { id: "03", title: "Atención Elite", desc: "Cada cliente es único. Asesoramos tu look según tu fisonomía y estilo de vida." },
+          ].map((item) => (
+            <div key={item.id} className="space-y-4 group">
+              <div className="text-white/10 text-7xl font-bold tracking-tighter group-hover:text-apple-titanium/20 transition-colors duration-500">{item.id}</div>
+              <h3 className="text-xl font-bold tracking-tight">{item.title}</h3>
+              <p className="text-white/40 leading-relaxed text-sm font-medium">
+                {item.desc}
+              </p>
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
-    </section>
-  );
-}
 
-function ImageGrid() {
-  return (
-    <section className="bg-black py-40 px-6">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row items-end justify-between mb-20 gap-8">
-          <h2 className="text-4xl md:text-7xl font-bold tracking-tighter max-w-2xl">
-            Tu mejor versión <br /> está por venir.
-          </h2>
-          <p className="text-gray-500 max-w-sm mb-4">
-            Inspirados en la estética urbana y el lujo moderno, creamos una experiencia que va más allá de un simple corte.
-          </p>
+      {/* Interactive Horizontal Scroll Container */}
+      <div className="relative mt-20">
+        <div className="flex gap-6 overflow-x-auto px-6 md:px-[calc((100vw-1280px)/2)] lg:px-[calc((100vw-1280px)/2+24px)] snap-x snap-mandatory scrollbar-hide pb-10">
+          {[
+            { img: "image_0.png", title: "Cortes de Autor", category: "Signature" },
+            { img: "image_1.png", title: "Barba Esculpida", category: "Precision" },
+            { img: "image_2.png", title: "Acabado Perfecto", category: "Finish" },
+            { img: "image_3.png", title: "Wesel Experience", category: "Luxury" },
+            { img: "image_0.png", title: "Degradado High End", category: "Technique" },
+          ].map((item, i) => (
+            <motion.div 
+              key={i} 
+              whileHover={{ y: -10 }}
+              className="min-w-[85vw] md:min-w-[450px] lg:min-w-[600px] h-[500px] lg:h-[600px] rounded-[40px] overflow-hidden relative group snap-center cursor-grab active:cursor-grabbing border border-white/5 titanium-border"
+            >
+              <img src={item.img} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt={item.title} />
+              <div className="absolute inset-0 bg-linear-to-t from-black via-black/20 to-transparent flex flex-col justify-end p-10">
+                <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-apple-titanium mb-2 opacity-60">
+                  {item.category}
+                </span>
+                <h3 className="text-white text-3xl lg:text-4xl font-bold tracking-tighter mb-6">{item.title}</h3>
+                <Link to="/reservar" className="w-12 h-12 rounded-full glass-morphism border border-white/20 flex items-center justify-center translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                  <ChevronRight size={20} />
+                </Link>
+              </div>
+            </motion.div>
+          ))}
+          {/* Spacer for better end-scroll feel */}
+          <div className="min-w-[10vw] h-10" />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="md:col-span-2 aspect-video rounded-3xl overflow-hidden bg-white/5 border border-white/10">
-            <img src="image_3.png" className="w-full h-full object-cover" alt="Interior" />
-          </div>
-          <div className="aspect-[3/4] rounded-3xl overflow-hidden bg-white/5 border border-white/10">
-            <img src="image_0.png" className="w-full h-full object-cover" alt="Barber" />
-          </div>
-          <div className="aspect-square rounded-3xl overflow-hidden bg-white/5 border border-white/10">
-            <img src="image_1.png" className="w-full h-full object-cover" alt="Team" />
-          </div>
-          <div className="md:col-span-2 aspect-video rounded-3xl overflow-hidden bg-white/5 border border-white/10">
-            <img src="image_2.png" className="w-full h-full object-cover" alt="Fade" />
-          </div>
+        {/* Navigation Indicator */}
+        <div className="flex justify-center gap-2 mt-4 hidden md:flex">
+          {[0, 1, 2, 3, 4].map((i) => (
+            <div key={i} className="w-1.5 h-1.5 rounded-full bg-white/10" />
+          ))}
         </div>
       </div>
     </section>
