@@ -1,0 +1,6 @@
+{
+  "name": "Wesel Barbershop",
+  "description": "Premium booking experience for Wesel Barbershop with real-time scheduling and admin dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
